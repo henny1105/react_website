@@ -10,10 +10,10 @@ function Main() {
 		<BrowserRouter>
 			<App>
 				<Routes>
-					<Route pate='/' element={<HomePage />} />
+					<Route path='/' element={<HomePage />} />
 					{/* / 링크가 들어오면 HomePage 컴포넌트를 보여주기 jsx를 넘겨주는 것 */}
-					<Route pate='courses' element={<CourseListPage />} />
-					<Route pate='courses/react-fronted-development' element={<CoursePage />} />
+					<Route path='courses' element={<CourseListPage />} />
+					<Route path='courses/react-fronted-development' element={<CoursePage />} />
 					<Route path='wishlist' element={<WishlistPage />} />
 				</Routes>
 			</App>
