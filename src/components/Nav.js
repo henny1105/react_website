@@ -6,7 +6,7 @@ import styles from './Nav.module.css';
 
 function getLinkStyle({ isActive }) {
 	return {
-		textDecoration: isActive ? 'underline' : undefined,
+		textDecoration: isActive ? 'underline' : '',
 	};
 }
 
@@ -19,12 +19,12 @@ function Nav() {
 				</Link>
 				<ul className={styles.menu}>
 					<li>
-						<NavLink to='/courses' style={getLinkStyle}>
+						<NavLink style={getLinkStyle} to='/courses'>
 							카탈로그
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to='/questions' style={getLinkStyle}>
+						<NavLink style={getLinkStyle} to='/questions'>
 							커뮤니티
 						</NavLink>
 					</li>

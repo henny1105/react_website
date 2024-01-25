@@ -1,6 +1,6 @@
-import { useParams, Navigate } from 'react-router-dom';
-import { getQuestionById } from '../api';
 import classNames from 'classnames';
+import { Navigate, useParams } from 'react-router-dom';
+import { getQuestionById } from '../api';
 import Avatar from '../components/Avatar';
 import Card from '../components/Card';
 import Container from '../components/Container';
@@ -13,9 +13,7 @@ function QuestionPage() {
 	const { questionId } = useParams();
 	const question = getQuestionById(questionId);
 
-	if (!question) {
-		return <Navigate to='/questions' />;
-	}
+	if (!question) return <Navigate to='/questions' />;
 
 	return (
 		<>
