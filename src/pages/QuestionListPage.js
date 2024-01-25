@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { getQuestions } from '../api';
-import { Link } from 'react-router-dom';
 import DateText from '../components/DateText';
 import ListPage from '../components/ListPage';
 import Warn from '../components/Warn';
@@ -30,14 +30,21 @@ function QuestionItem({ question }) {
 }
 
 function QuestionListPage() {
-	const [keyword, setKeyword] = useState('');
-	const questions = getQuestions();
+	const [searchParams, setSearchParams] = useSearchParams();
+	const initKeyword = searchParams.get('keyword');
+	const [keyword, setKeyword] = useState(initKeyword || '');
+	const questions = getQuestions(initKeyword);
 
 	const handleKeywordChange = (e) => setKeyword(e.target.value);
 
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		setSearchParams(keyword ? { keyword } : {});
+	};
+
 	return (
 		<ListPage variant='community' title='커뮤니티' description='코드댓의 2만 수강생들과 함께 공부해봐요.'>
-			<form className={searchBarStyles.form}>
+			<form className={searchBarStyles.form} onSubmit={handleSubmit}>
 				<input name='keyword' value={keyword} placeholder='검색으로 질문 찾기' onChange={handleKeywordChange} />
 				<button type='submit'>
 					<img src={searchIcon} alt='검색' />
@@ -46,7 +53,7 @@ function QuestionListPage() {
 
 			<p className={styles.count}>총 {questions.length}개 질문</p>
 
-			{questions.length === 0 ? (
+			{initKeyword && questions.length === 0 ? (
 				<Warn className={styles.emptyList} title='조건에 맞는 질문이 없어요.' description='올바른 검색어가 맞는지 다시 한 번 확인해 주세요.' />
 			) : (
 				<div className={styles.questionList}>
